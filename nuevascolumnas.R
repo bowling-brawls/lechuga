@@ -36,12 +36,4 @@ RGRdf <- RGRdf[!duplicated(RGRdf),]
 
 HojasConRGR <- merge(HojasRawFinal, RGRdf[,c("IDmata", "rgrtot")], by="IDmata")
 
-# exploratory graphs ------------------------------------------------------
-
-
-RGRdf <- transform(HojasConRGR, T=factor(T))
-xyplot(rgrtot ~ DDS | T, data = HojasConRGR,
-       layout=c(3,1))
-
-qplot(as.factor(as.character(T)), rgrtot, data = HojasConRGR, geom="boxplot", 
-      color=T)
+save(HojasConRGR, file="noRawdfs.RData") 
