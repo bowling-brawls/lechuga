@@ -1,6 +1,12 @@
 library(dplyr)
-library(reshape2)
-load("datoscompletos.RData")
+library(lattice)
+library(ggplot2)
+
+if(R.version$os=="linux-gnu"){ 
+  load("~/Documents/lechuga/datoscompletos.RData")
+} else if (R.version$os=="darwin15.6.0"){
+  load("~/Documentos/Biologia/Tesis/dataAnalysis/datoscompletos.RData")
+}
 HojasRawFinal$AFE <- HojasRawFinal$a.fol/HojasRawFinal$ms.hoja.tot
 HojasRawFinal$IAF <- HojasRawFinal$a.fol/HojasRawFinal$asup
 HojasRawFinal$mstotal <- HojasRawFinal$ms.hoja.tot+HojasRawFinal$ms.raiz+HojasRawFinal$ms.tallo
@@ -25,4 +31,17 @@ RGRdf <- mutate(RGRdf, rgr2 = round((log(mstotal2) - log(mstotal3))/(DDS2-DDS3),
 RGRdf <- mutate(RGRdf, rgr3 = round((log(mstotal3) - log(mstotal4))/(DDS3-DDS4),3))
 RGRdf <- mutate(RGRdf, rgrtot = round((log(mstotal1) - log(mstotal4))/(DDS1-DDS4),3))
 
+RGRdf <- merge(RGRdf, HojasRawFinal[,c("IDmata", "T")], by="IDmata")
+RGRdf <- RGRdf[!duplicated(RGRdf),]
 
+HojasConRGR <- merge(HojasRawFinal, RGRdf[,c("IDmata", "rgrtot")], by="IDmata")
+
+# exploratory graphs ------------------------------------------------------
+
+
+RGRdf <- transform(HojasConRGR, T=factor(T))
+xyplot(rgrtot ~ DDS | T, data = HojasConRGR,
+       layout=c(3,1))
+
+qplot(as.factor(as.character(T)), rgrtot, data = HojasConRGR, geom="boxplot", 
+      color=T)
