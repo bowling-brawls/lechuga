@@ -5,7 +5,7 @@ library(ggplot2)
 if(R.version$os=="linux-gnu"){ 
   load("~/Documents/lechuga/datoscompletos.RData")
 } else if (R.version$os=="darwin15.6.0"){
-  load("~/Documentos/Biologia/Tesis/dataAnalysis/datoscompletos.RData")
+  load("~/Documents/Biologia/Tesis/dataAnalysis/datoscompletos.RData")
 }
 HojasRawFinal$AFE <- HojasRawFinal$a.fol/HojasRawFinal$ms.hoja.tot
 HojasRawFinal$IAF <- HojasRawFinal$a.fol/HojasRawFinal$asup
