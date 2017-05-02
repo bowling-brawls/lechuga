@@ -36,4 +36,4 @@ RGRdf <- RGRdf[!duplicated(RGRdf),]
 
 HojasConRGR <- merge(HojasRawFinal, RGRdf[,c("IDmata", "rgrtot")], by="IDmata")
 
-save(HojasConRGR, file="noRawdfs.RData") 
+save(HojasConRGR, file= "~/Documents/Biologia/Tesis/dataAnalysis/noRawdfs.RData") 
