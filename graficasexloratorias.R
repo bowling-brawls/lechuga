@@ -17,6 +17,8 @@ if(R.version$os=="linux-gnu"){
 print(qplot(as.factor(as.character(T)), rgrtot, data = HojasConRGR, 
             geom="boxplot",color=T))
 
+print(qplot(as.factor(as.character(T)), IAF, data = HojasConRGR, 
+            geom="boxplot",color=T))
 
 # Lineas ------------------------------------------------------------------
 
@@ -35,11 +37,13 @@ afoliarplot <- ggplot(data = df, aes(x=DDS, y=value, colour=as.factor(as.charact
 
 print(afoliarplot)
 
-# Histogramas -------------------------------------------------------------
+#histogramas-----
+# pigmentos bars -------------------------------------------------------------
 df <- melt(promediopigmentos, id.vars = c("T"))
 pigmentosbars <- ggplot(data=df, aes(x=T, y=value, fill=variable)) +  geom_bar(stat="identity", position=position_dodge(), colour="black")
 print(pigmentosbars)
 
+#fvfm bars ----
 
 df <- filter(promediosmelt, variable=="meanFvFm")
 
@@ -47,5 +51,27 @@ FvFmbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
   coord_cartesian(ylim=c(0.75, 0.85))
 print(FvFmbars)
+
+#masa seca bars----
+df <- filter(promediosmelt, variable=="meanmseca")
+
+msecabars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black")
+print(msecabars)
+
+#AFEbars----
+df <- filter(promediosmelt, variable=="meanAFE")
+
+AFEbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black")
+print(AFEbars)
+
+#IAF bars-----
+df <- filter(promediosmelt, variable=="meanIAF")
+
+IAFbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black")
+print(IAFbars)
+
 
 
