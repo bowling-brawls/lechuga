@@ -1,5 +1,6 @@
 library(ggplot2)
 library(plyr)
+library(RColorBrewer)
 
 if(R.version$os=="linux-gnu"){ 
   load("~/Documents/Ignacio/lechuga/noRawdfs.RData")
@@ -82,11 +83,11 @@ print(FvFmbars)
 
 #Los dos vectores de nombres de columna y labels deben estar en el MISMO ORDEN
 colsSE <- c( "qP", "NPQ","a.fol", "AFE", "IAF", "y.II.", "etr",
-  "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo")
+  "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo", "mf.hoj")
 labelscolsSE <- c("qP", "NPQ","Área foliar (cm2)", "Área Foliar Específica (cm2/g)", 
                   "Índice área foliar", "Y(II)", "Tasa transporte electrones",
                   "Contenido relativo de agua (%)", "masa seca total", "masa seca foliar", 
-                  "masa seca raiz", "masa seca tallo")
+                  "masa seca raiz", "masa seca tallo", "masa foliar fresca")
 
 numcols <-length(colsSE)
 
@@ -102,10 +103,11 @@ objetoggplot <- ggplot(data=df, aes(x=as.factor(T), y=colmean,
   scale_x_discrete(name="Tratamiento", 
                    breaks=as.character(1:3), 
                    labels=c("PolUV", "Control","PolCom"))+
-  scale_fill_discrete(name="DDS") +
   geom_errorbar(aes(ymin=colmean-se, ymax=colmean+se),
                 width=.2,                    # Width of the error bars
-                position=position_dodge(.9))
+                position=position_dodge(.9))+
+  scale_fill_brewer(palette="YlGn", name="DDS")
 
 print(objetoggplot)
+
 }

@@ -5,10 +5,12 @@ library(dplyr)
 if(R.version$os=="linux-gnu"){ 
   load("~/Documents/Ignacio/lechuga/noRawdfs.RData")
   load("~/Documents/Ignacio/lechuga/promedios.RData")
+  setwd("~/Documents/Ignacio/lechuga/")
 } else if (R.version$os=="darwin15.6.0"){
   load("~/Documents/Biologia/Tesis/dataAnalysis/noRawdfs.RData")
   load("~/Documents/Biologia/Tesis/dataAnalysis/promedios.RData")
-}
+  setwd("~/Documents/Biologia/Tesis/dataAnalysis/")
+  }
 
 
 
@@ -29,20 +31,38 @@ promediosmelt <- melt(promedios, id.vars = c("T", "DDS"))
 prodmelt <- melt(productionmean, id.vars = c("T"))
 
 #graficar con ggplot2
+
 df <- filter(promediosmelt, variable=="meanafol")
+df$ID <- paste0(df$T,df$DDS)
 
+dfSE <- summarySE(HojasConRGR, measurevar="a.fol", groupvars=c("T", "DDS"))
+dfSE$ID <- paste0(dfSE$T,dfSE$DDS)
 
-afoliarplot <- ggplot(data = df, aes(x=DDS, y=value, colour=as.factor(as.character(T)))) + geom_line() + 
-  ylab("Área foliar (cm^2)") + xlab("Días después de siembra") + 
-  scale_color_discrete(name="Tratamiento", breaks=c("1", "2", "3"),
-                       labels=c("PolUV", "Control", "Polcom"))
+df <- merge(df,dfSE[,c("ID","se")], by="ID")  
 
-print(afoliarplot)
-
+  afoliarplot <- ggplot(data = df, aes(x=DDS, y=value,
+                                       colour=as.factor(as.character(T)))) + 
+    geom_line() + 
+    ylab(expression(paste("Volumen Área Foliar ", cm^{2}))) +
+    xlab("Días después de siembra") + 
+    scale_color_discrete(name="Tratamiento", breaks=c("1", "2", "3"),
+                         labels=c("PolUV", "Control", "Polcom"))  +
+    scale_x_continuous(breaks = c(30,45,60,75)) +
+    geom_errorbar(aes(ymin=value-se, ymax=value+se),
+                width=.2,                    # Width of the error bars
+                position=position_dodge(0.9))
+  
+  print(afoliarplot)
+   
+  
 #histogramas-----
 # pigmentos bars -------------------------------------------------------------
 df <- melt(promediopigmentos, id.vars = c("T"))
-pigmentosbars <- ggplot(data=df, aes(x=T, y=value, fill=variable)) +  geom_bar(stat="identity", position=position_dodge(), colour="black")
+pigmentosbars <- ggplot(data=df, aes(x=T, y=value, fill=variable)) +  
+  geom_bar(stat="identity", position=position_dodge(), colour="black")+
+  geom_errorbar(aes(ymin=value-se, ymax=value+se),
+                width=.2,                    # Width of the error bars
+                position=position_dodge(.9))
 print(pigmentosbars)
 
 #fvfm bars ----
