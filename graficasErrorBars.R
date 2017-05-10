@@ -80,7 +80,7 @@ FvFmbars <- ggplot(data=df, aes(x=as.factor(T), y=fv.fm, fill=as.factor(DDS))) +
 
 print(FvFmbars)
 
-
+# para probar git
 #Los dos vectores de nombres de columna y labels deben estar en el MISMO ORDEN
 colsSE <- c( "qP", "NPQ","a.fol", "AFE", "IAF", "y.II.", "etr",
   "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo", "mf.hoj")
