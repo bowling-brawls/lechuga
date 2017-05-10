@@ -11,6 +11,7 @@ if(R.version$os=="linux-gnu"){
 }
 
 
+
 # Boxplots ----------------------------------------------------------------
 
 
@@ -48,16 +49,29 @@ print(pigmentosbars)
 
 df <- filter(promediosmelt, variable=="meanFvFm")
 
-FvFmbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
-  geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  coord_cartesian(ylim=c(0.75, 0.85))
-print(FvFmbars)
+# df <- summarySE(HojasConRGR, measurevar="fv.fm", groupvars=c("T", "DDS"))
+# 
+# FvFmbars <- ggplot(data=df, aes(x=as.factor(T), y=fv.fm, fill=as.factor(DDS))) +
+#   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
+#   coord_cartesian(ylim=c(0.75, 0.85)) + ylab("Fv/Fm") +  
+#   scale_x_discrete(name="Tratamiento", 
+#                    breaks=as.character(1:3), 
+#                    labels=c("PolUV", "Control","PolCom"))+
+#   scale_fill_discrete(name="DDS")+
+#   geom_errorbar(aes(ymin=fv.fm-se, ymax=fv.fm+se),
+#                 width=.2,                    # Width of the error bars
+#                 position=position_dodge(.9))
+# 
+# print(FvFmbars)
+
+
 #YII bars
 df <- filter(promediosmelt, variable=="meanYII")
 
 YIIbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
-  geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  coord_cartesian(ylim=c(0, 0.4))
+  geom_bar(stat="identity", position=position_dodge(), colour="black") 
+# + 
+  # coord_cartesian(ylim=c(0, 0.4))
 print(YIIbars)
 
 # qP bars----

@@ -1,7 +1,7 @@
 library(xlsx)
 
 if(R.version$os=="linux-gnu"){ 
-  load("~/Documents/lechuga/noRawdfs.RData")
+  load("~/Documents/Ignacio/lechuga/noRawdfs.RData")
 } else if (R.version$os=="darwin15.6.0"){
   load("~/Documents/Biologia/Tesis/dataAnalysis/noRawdfs.RData")
 }

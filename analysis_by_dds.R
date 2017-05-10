@@ -3,7 +3,8 @@ if(R.version$os=="linux-gnu"){
 } else if (R.version$os=="darwin15.6.0"){
   load("~/Documents/Biologia/Tesis/dataAnalysis/noRawdfs.RData")
 }
-library (pgirmess)
+
+
 HojasConRGR$T <- as.factor(HojasConRGR$T)
 dds30<- subset(HojasConRGR, DDS<31)
 dds45<- subset(HojasConRGR, DDS>31 & DDS<46)
