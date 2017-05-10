@@ -11,6 +11,7 @@ HojasRawFinal$AFE <- HojasRawFinal$a.fol/HojasRawFinal$ms.hoja.tot
 HojasRawFinal$IAF <- HojasRawFinal$a.fol/HojasRawFinal$asup
 HojasRawFinal$mstotal <- HojasRawFinal$ms.hoja.tot+HojasRawFinal$ms.raiz+HojasRawFinal$ms.tallo
 
+
 calcRGRdf <- select(HojasRawFinal, DDS, mstotal, IDmata)
 
 tmp1 <- filter(calcRGRdf, DDS==30) %>% rename(DDS1 = DDS, mstotal1 = mstotal)
@@ -35,5 +36,8 @@ RGRdf <- merge(RGRdf, HojasRawFinal[,c("IDmata", "T")], by="IDmata")
 RGRdf <- RGRdf[!duplicated(RGRdf),]
 
 HojasConRGR <- merge(HojasRawFinal, RGRdf[,c("IDmata", "rgrtot")], by="IDmata")
+HojasConRGR$prodm2 <- 4*HojasConRGR$mf.hoj
 
 save(HojasConRGR, file= "~/Documents/Biologia/Tesis/dataAnalysis/noRawdfs.RData") 
+
+

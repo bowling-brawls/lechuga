@@ -24,7 +24,8 @@ print(qplot(as.factor(as.character(T)), IAF, data = HojasConRGR,
 
 
 # preparar los datos para el plot de lineas
-promediosmelt <- melt(promedio, id.vars = c("T", "DDS"))
+promediosmelt <- melt(promedios, id.vars = c("T", "DDS"))
+prodmelt <- melt(productionmean, id.vars = c("T"))
 
 #graficar con ggplot2
 df <- filter(promediosmelt, variable=="meanafol")
@@ -51,6 +52,30 @@ FvFmbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
   coord_cartesian(ylim=c(0.75, 0.85))
 print(FvFmbars)
+#YII bars
+df <- filter(promediosmelt, variable=="meanYII")
+
+YIIbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black") + 
+  coord_cartesian(ylim=c(0, 0.4))
+print(YIIbars)
+
+# qP bars----
+df <- filter(promediosmelt, variable=="meanqP")
+
+qPbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black") + 
+  coord_cartesian(ylim=c(0, 0.6))
+print(qPbars)
+
+#NPQ bars ----
+
+df <- filter(promediosmelt, variable=="meanNPQ")
+
+NPQbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black") + 
+  coord_cartesian(ylim=c(0, 1.45))
+print(NPQbars)
 
 #masa seca bars----
 df <- filter(promediosmelt, variable=="meanmseca")
@@ -73,5 +98,25 @@ IAFbars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
   geom_bar(stat="identity", position=position_dodge(), colour="black")
 print(IAFbars)
 
+#productividad bars----
+df <- filter(prodmelt, variable=="meanprod")
+
+productivitybars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(T))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black")
+print(productivitybars)
+
+df <- filter(prodmelt, variable=="meanprodm2")
+
+productivitybars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(T))) +
+  geom_bar(stat="identity", position=position_dodge(), colour="black")
+print(productivitybars)
+
+#
+
+# df <- filter(prod, variable=="prodm2")
+# 
+# productivitybars <- ggplot(data=df, aes(x=T, y=value, fill=as.factor(DDS))) +
+#   geom_bar(stat="identity", position=position_dodge(), colour="black")
+# print(productivitybars)
 
 

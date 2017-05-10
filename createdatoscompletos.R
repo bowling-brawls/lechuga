@@ -61,5 +61,7 @@ HojasRawFinal<- merge(hojasFluo,hojasMue)
 names(HojasRawFinal)[names(HojasRawFinal) == "a.sup"] <- "diam"
 HojasRawFinal$asup <- ((HojasRawFinal$diam/2)^2)*pi
 
+
+
 save(HojasRawFinal, file="datoscompletos.RData")
 write.xlsx(HojasRawFinal,file = "datoscompletos.xlsx")
