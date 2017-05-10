@@ -84,8 +84,9 @@ print(FvFmbars)
 colsSE <- c( "qP", "NPQ","a.fol", "AFE", "IAF", "y.II.", "etr",
   "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo")
 labelscolsSE <- c("qP", "NPQ","Área foliar (cm2)", "Área Foliar Específica (cm2/g)", 
-                  "Índice área foliar", "ACA VAMOS", "etr",
-                  "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo")
+                  "Índice área foliar", "Y(II)", "Tasa transporte electrones",
+                  "Contenido relativo de agua (%)", "masa seca total", "masa seca foliar", 
+                  "masa seca raiz", "masa seca tallo")
 
 numcols <-length(colsSE)
 
