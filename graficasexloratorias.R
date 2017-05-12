@@ -200,6 +200,7 @@ pigmentosbars <- ggplot(data=df, aes(x=T, y=value, fill=variable)) +
                 position=position_dodge(.9))
 print(pigmentosbars)
 
+
 #masa seca tallo ----
 
 library(dplyr)
@@ -214,7 +215,7 @@ dfSE$ID <- paste0(dfSE$T,dfSE$DDS)
 df <- merge(df,dfSE[,c("ID","se")], by="ID")  
 
 mstalloplot <- ggplot(data = df, aes(x=DDS, y=value,
-                                    colour=as.factor(as.character(T)))) + 
+                                     colour=as.factor(as.character(T)))) + 
   geom_line() + 
   ylab(expression(paste("Masa seca tallo"))) +
   xlab("Días después de siembra") + 
@@ -226,6 +227,7 @@ mstalloplot <- ggplot(data = df, aes(x=DDS, y=value,
                 position=position_dodge(0.9))
 
 print(mstalloplot)
+
 
 #histogramas-----
 # pigmentos bars -------------------------------------------------------------
@@ -344,4 +346,10 @@ print(productivitybars)
 #   geom_bar(stat="identity", position=position_dodge(), colour="black")
 # print(productivitybars)
 
-
+#PE bars -------------------------------------------------------------
+  df <- melt(promediosPE, id.vars = c("T"))
+PEbars <- ggplot(data=df, aes(x=T, y=value, fill=variable)) +  
+  geom_bar(stat="identity", position=position_dodge(), colour="black") +
+  ylab(expression(paste("%"))) +
+  xlab("Tratamiento") 
+print(PEbars)
