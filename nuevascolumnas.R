@@ -38,6 +38,9 @@ RGRdf <- RGRdf[!duplicated(RGRdf),]
 HojasConRGR <- merge(HojasRawFinal, RGRdf[,c("IDmata", "rgrtot")], by="IDmata")
 HojasConRGR$prodm2 <- 4*HojasConRGR$mf.hoj
 
-save(HojasConRGR, file= "~/Documents/Biologia/Tesis/dataAnalysis/noRawdfs.RData") 
+HojasConRGR$RootShoot  <- with(HojasConRGR, ms.raiz/(mstotal-ms.raiz)) 
+
+
+save(HojasConRGR, file= "~/Documents/Ignacio/lechuga/noRawdfs.RData")
 
 

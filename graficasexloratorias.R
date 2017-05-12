@@ -347,7 +347,8 @@ print(productivitybars)
 # print(productivitybars)
 
 #PE bars -------------------------------------------------------------
-  df <- melt(promediosPE, id.vars = c("T"))
+load(file="promediosPE.Rdata")
+df <- melt(promediosPE, id.vars = c("T"))
 PEbars <- ggplot(data=df, aes(x=T, y=value, fill=variable)) +  
   geom_bar(stat="identity", position=position_dodge(), colour="black") +
   ylab(expression(paste("%"))) +
