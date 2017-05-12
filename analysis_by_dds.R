@@ -5,6 +5,7 @@ if(R.version$os=="linux-gnu"){
 }
  
 library(pgirmess)
+library(PMCMR)
 
 HojasConRGR$T <- as.factor(HojasConRGR$T)
 dds30<- subset(HojasConRGR, DDS<31)

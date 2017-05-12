@@ -63,11 +63,11 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 #       SEfvfm = SDfvfm/sqrt(N)
 # )
 
-# Plot --------------------------------------------------------------------
-detach("package:dplyr", unload=TRUE)
+# # Plot --------------------------------------------------------------------
+# detach("package:dplyr", unload=TRUE)
 df <- summarySE(HojasConRGR, measurevar="fv.fm", groupvars=c("T", "DDS"))
 
-FvFmbars <- ggplot(data=df, aes(x=as.factor(T), y=fv.fm, fill=as.factor(DDS))) +
+FvFmbars <- ggplot(data=df, aes(x=as.factor(DDS), y=fv.fm, fill=as.factor(T))) +
   geom_bar(stat="identity", position=position_dodge(), colour="black") + 
   coord_cartesian(ylim=c(0.75, 0.85)) + ylab("Fv/Fm") +  
   scale_x_discrete(name="Tratamiento", 
@@ -83,7 +83,7 @@ print(FvFmbars)
 #
 #Los dos vectores de nombres de columna y labels deben estar en el MISMO ORDEN
 colsSE <- c( "qP", "NPQ","a.fol", "AFE", "IAF", "y.II.", "etr",
-  "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo", "mf.hoj")
+             "CRA", "mstotal", "ms.hoja.tot", "ms.raiz", "ms.tallo", "mf.hoj")
 labelscolsSE <- c("qP", "NPQ","Área foliar (cm2)", "Área Foliar Específica (cm2/g)", 
                   "Índice área foliar", "Y(II)", "Tasa transporte electrones",
                   "Contenido relativo de agua (%)", "masa seca total", "masa seca foliar", 
@@ -92,23 +92,23 @@ labelscolsSE <- c("qP", "NPQ","Área foliar (cm2)", "Área Foliar Específica (c
 numcols <-length(colsSE)
 
 for(col in 1:numcols){
-df <- summarySE(HojasConRGR, measurevar=colsSE[col], groupvars=c("T", "DDS"))
-
-df$colmean <- df[,colsSE[col]]
-
-objetoggplot <- ggplot(data=df, aes(x=as.factor(DDS), y=colmean, 
-                                    fill=as.factor(T))) +
-  geom_bar(stat="identity", position=position_dodge(), colour="black") + 
-  ylab(labelscolsSE[col]) +  
-  scale_x_discrete(name="Tratamiento", 
-                   breaks=as.character(1:3), 
-                   labels=c("PolUV", "Control","PolCom"))+
-  geom_errorbar(aes(ymin=colmean-se, ymax=colmean+se),
-                width=.2,                    # Width of the error bars
-                position=position_dodge(.9))+
-  scale_fill_brewer(palette="YlGn", name="DDS")
-
-print(objetoggplot)
-
+  df <- summarySE(HojasConRGR, measurevar=colsSE[col], groupvars=c("T", "DDS"))
+  
+  df$colmean <- df[,colsSE[col]]
+  
+  objetoggplot <- ggplot(data=df, aes(x=as.factor(DDS), y=colmean, 
+                                      fill=as.factor(T))) +
+    geom_bar(stat="identity", position=position_dodge(), colour="black") + 
+    ylab(labelscolsSE[col]) +  
+    scale_x_discrete(name="DDS", 
+                     breaks=as.character(1:4), 
+                     labels=c("30", "45","60", "75"))+
+    geom_errorbar(aes(ymin=colmean-se, ymax=colmean+se),
+                  width=.2,                    # Width of the error bars
+                  position=position_dodge(.9))+
+    scale_fill_brewer(palette="YlGn", name="Tratamiento")
+  
+  print(objetoggplot)
+  
 }
 

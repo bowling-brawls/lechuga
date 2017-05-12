@@ -5,7 +5,8 @@ HojasConRGR %>%
             meanETR=mean(etr), meanNPQ=mean(NPQ), meanqP=mean(qP),
             meanafol=mean(a.fol), meanmseca=mean(mstotal), 
             meanCRA=mean(CRA), meanAFE=mean(AFE), meanIAF=mean(IAF), 
-            meanmfresca=mean(mf.hoj), meanprodm2=mean(prodm2)) -> promedios
+            meanmfresca=mean(mf.hoj), meanprodm2=mean(prodm2), 
+            meanmstallo=mean(ms.tallo), meanmsraiz=mean(ms.raiz)) -> promedios
 dds75 %>% 
   group_by(T) %>%
   summarise(meanprodm2= mean(prodm2), meanprod=mean(mf.hoj)) -> productionmean
